@@ -11,12 +11,15 @@ public class CrudMongo {
 
     private MongoTemplate mongoTemplate;
 
-    public CrudMongo(MongoTemplate mongoTemplate) {
+    private ProductRepo productRepo;
+
+    public CrudMongo(MongoTemplate mongoTemplate, ProductRepo productRepo) {
         this.mongoTemplate = mongoTemplate;
+        this.productRepo = productRepo;
     }
 
     public void saveData() {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
             var product = new Product();
             product.title = "Product " + i;
             product.description = "Description " + i;
@@ -32,5 +35,15 @@ public class CrudMongo {
         productList.stream().forEach(product -> {
             System.out.println(product.id + "  " + product.title + "  " + product.price);
         });
+    }
+
+
+    public void deleteAllData(){
+//        Criteria criteriaIsThing = Criteria.where("category").is("Thing");
+//        Criteria priceRange =  Criteria.where("price").gt(1000).lt(10000);
+//        Query query = Query.query(criteriaIsThing).addCriteria(priceRange);
+//        mongoTemplate.findAllAndRemove(query, Product.class);
+
+        productRepo.deleteAll();
     }
 }
