@@ -14,5 +14,10 @@ public class ProductController {
         crudMongo.saveData();
     }
 
+    @GetMapping("/getData")
+    public void getData(){
+        crudMongo.showAllData();
+    }
+
 
 }

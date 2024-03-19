@@ -3,6 +3,7 @@ package com.SpringDataWithNoSQL.SpringNoSQLDB;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Component
@@ -14,8 +15,8 @@ public class CrudMongo {
         this.mongoTemplate = mongoTemplate;
     }
 
-    public void saveData(){
-        for (int i = 0; i < 100000; i++) {
+    public void saveData() {
+        for (int i = 0; i < 100; i++) {
             var product = new Product();
             product.title = "Product " + i;
             product.description = "Description " + i;
@@ -26,5 +27,10 @@ public class CrudMongo {
         }
     }
 
-
+    public void showAllData() {
+        List<Product> productList = mongoTemplate.findAll(Product.class);
+        productList.stream().forEach(product -> {
+            System.out.println(product.id + "  " + product.title + "  " + product.price);
+        });
+    }
 }
